@@ -6,19 +6,17 @@ training_data, test_data = graphlab.SFrame.read_csv('../data/training.csv').rand
 training_data['word_count'] = graphlab.text_analytics.count_words(training_data['sentence'])
 
 sentiment_word_count_model = graphlab.logistic_classifier.create(training_data, 
-																 target='sentiment', 
-																 features=['word_count'],
-																 max_iterations=60,
-																 l2_penalty=0.01,
-																 validation_set=None)
+                                                                 target='sentiment', 
+                                                                 features=['word_count'],
+                                                                 max_iterations=30,
+                                                                 validation_set=None)
 training_data['tfidf'] = graphlab.text_analytics.tf_idf(training_data['word_count'])
 
 sentiment_tfidf_model  = graphlab.logistic_classifier.create(training_data, 
-															 target='sentiment', 
-															 features=['tfidf'],
-															 max_iterations=60,
-															 l2_penalty=0.01,
-															 validation_set=None)
+                                                             target='sentiment', 
+                                                             features=['tfidf'],
+                                                             max_iterations=30,
+                                                             validation_set=None)
 
 test_data['word_count'] = graphlab.text_analytics.count_words(test_data['sentence'])
 test_data['tfidf'] = graphlab.text_analytics.tf_idf(test_data['word_count'])
